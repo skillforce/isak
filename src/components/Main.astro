@@ -4,12 +4,20 @@ import ToolImg from "./tool.svg";
 
 
 <section class="main_container">
-    <section class="main_sub_section">
-    <h1 class="main_title"> Сверхзвуковой</h1>
-    <h1 class="main_title"> пескоструйный</h1>
-    <h1 class="main_title"> аппарат</h1>
-    </section>
     <img class="tool_img" src={'./tool.svg'} alt="tool which is saling"/>
+    <section class="main_sub_section">
+        <div>
+         <h1 class="main_title"> Сверхзвуковой</h1>
+         <h1 class="main_title"> пескоструйный</h1>
+         <h1 class="main_title"> аппарат</h1>
+        </div>
+        <h2 class="main_text">
+            Если вы ищете современное, эффективное и экономичное решение для очистки поверхностей от коррозии, старого лакокрасочного покрытия или других загрязнений, сверхзвуковой пескоструйный аппарат — это именно то, что вам нужно. Представляем вам уникальную технологию, которая сочетает в себе компактность, точность и высокую производительность.
+        </h2>
+        <footer class="main_footer">
+        <button class="primary_button">Заказать</button>
+        </footer>
+    </section>
 </section>
 
 
@@ -19,14 +27,17 @@ import ToolImg from "./tool.svg";
         height: 100vh;
         background-image: url("../assets/backgroundPrimary.svg");
         background-size: cover;
-        padding: 70px 0 0;
+        padding: 40px 0 0;
         position: relative;
-        overflow-x: auto ;
+        overflow-x: hidden ;
 
     }
 
     .main_sub_section {
-        width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 85%;
         background-image: url("../assets/backgroundSecondary.svg");
         background-size: cover;
         padding: 20px 10%;
@@ -36,17 +47,45 @@ import ToolImg from "./tool.svg";
             font-size: 70px;
             line-height: 78px;
             letter-spacing: 0;
-            color: #FFFFFF;
             position: relative;
             z-index: 10;
+        }
+
+        .main_text{
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 27px;
+            letter-spacing:0;
+            text-wrap: balance;
+            position: relative;
+            z-index: 10;
+
         }
 
     }
     .tool_img {
         position: absolute;
-        height: 70%;
-        right: 10%;
+        height: 100%;
+        right: 20px;
         top: -10px
+    }
+
+    .primary_button{
+        padding: 14px 150px;
+        height: 74px;
+        background: #9C21A7;
+        box-shadow: 0 10px 17px rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        width: fit-content;
+        cursor: pointer;
+        box-sizing: border-box;
+        font-size: 32px;
+        position: relative;
+        z-index: 10;
+    }
+
+    .main_footer{
+        margin: 60px 0;
     }
 
     @media (max-width: 1024px) {
@@ -55,20 +94,43 @@ import ToolImg from "./tool.svg";
             top:10px;
             right: 5%;
         }
-    }
-    @media (max-width: 880px) {
         .main_sub_section {
-            width: 100%;
             .main_title{
                 font-size: 24px;
                 line-height: 24px;
             }
+            .main_text{
+                font-size: 16px;
+                line-height: 18px;
+
+            }
+        }
+
+        .primary_button{
+            padding: 10px 80px;
+            height: 64px;
+            font-size: 24px;
+        }
+
+        .main_footer{
+            margin: 30px 0;
+        }
+
+    }
+    @media (max-width: 660px) {
+        .main_sub_section {
+            width: 100%;
         }
         .main_container {
             padding: 0;
         }
         .tool_img {
             right: -20px;
+        }
+        .primary_button{
+            padding: 8px 30px;
+            height: 54px;
+            font-size: 18px;
         }
     }
 </style>

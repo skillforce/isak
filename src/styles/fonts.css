@@ -5,6 +5,8 @@
     font-style: normal;
 }
 
-body {
+body, button {
     font-family: 'Sansation', sans-serif;
+    color: #FFFFFF;
+
 }
