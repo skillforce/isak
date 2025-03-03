@@ -1,0 +1,74 @@
+---
+import ToolImg from "./tool.svg";
+---
+
+
+<section class="main_container">
+    <section class="main_sub_section">
+    <h1 class="main_title"> Сверхзвуковой</h1>
+    <h1 class="main_title"> пескоструйный</h1>
+    <h1 class="main_title"> аппарат</h1>
+    </section>
+    <img class="tool_img" src={'./tool.svg'} alt="tool which is saling"/>
+</section>
+
+
+<style>
+    .main_container {
+        width: 100%;
+        height: 100vh;
+        background-image: url("../assets/backgroundPrimary.svg");
+        background-size: cover;
+        padding: 70px 0 0;
+        position: relative;
+        overflow-x: auto ;
+
+    }
+
+    .main_sub_section {
+        width: 80%;
+        background-image: url("../assets/backgroundSecondary.svg");
+        background-size: cover;
+        padding: 20px 10%;
+
+        .main_title{
+            font-weight: 700;
+            font-size: 70px;
+            line-height: 78px;
+            letter-spacing: 0;
+            color: #FFFFFF;
+            position: relative;
+            z-index: 10;
+        }
+
+    }
+    .tool_img {
+        position: absolute;
+        height: 70%;
+        right: 10%;
+        top: -10px
+    }
+
+    @media (max-width: 1024px) {
+        .tool_img {
+            height: 60%;
+            top:10px;
+            right: 5%;
+        }
+    }
+    @media (max-width: 880px) {
+        .main_sub_section {
+            width: 100%;
+            .main_title{
+                font-size: 24px;
+                line-height: 24px;
+            }
+        }
+        .main_container {
+            padding: 0;
+        }
+        .tool_img {
+            right: -20px;
+        }
+    }
+</style>
