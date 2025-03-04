@@ -1,0 +1,34 @@
+---
+import Button from "../shared/components/Button.astro";
+import VideoEmbed from "../shared/components/VideoEmbed.astro";
+import { MEDIA_SECTION_DATA } from "../shared/data/mediaSectionData";
+---
+
+<section class="media_section">
+  {MEDIA_SECTION_DATA.VIDEOS_ID.map((id) => <VideoEmbed videoId={id} />)}
+  <Button isCentered>{MEDIA_SECTION_DATA.BUTTON_TITLE}</Button>
+  <footer class="media_footer">
+    {MEDIA_SECTION_DATA.COMPANY_NAME}
+    <br />
+    {MEDIA_SECTION_DATA.LOCATION_TIME}
+  </footer>
+</section>
+
+<style>
+  .media_section {
+    padding: 40px 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .media_button {
+    align-self: center;
+  }
+  .media_footer {
+    text-align: center;
+    font-size: 18px;
+    color: #000000;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+</style>
