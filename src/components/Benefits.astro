@@ -1,0 +1,39 @@
+---
+import BenefitsCard from "../shared/components/BenefitsCard.astro";
+---
+
+
+<section class="benefits_section">
+    <BenefitsCard>
+        Обработка труднодоступных мест
+    </BenefitsCard>
+    <BenefitsCard>
+        Компактный
+    </BenefitsCard>
+    <BenefitsCard>
+        Максимальная эфективность при малом расходе образива
+    </BenefitsCard>
+</section>
+
+<style>
+
+    .benefits_section {
+        padding: 120px 30px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 40px;
+    }
+
+    @media (max-width: 1024px) {
+        .benefits_section {
+            padding: 70px 20px;
+        }
+    }
+    @media (max-width: 660px) {
+        .benefits_section {
+            padding: 40px 10px;
+        }
+    }
+
+</style>

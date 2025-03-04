@@ -1,0 +1,33 @@
+---
+import Button from "../shared/components/Button.astro";
+import VideoEmbed from "../shared/components/VideoEmbed.astro";
+---
+
+
+<section class="media_section">
+   <VideoEmbed videoId="wwzq9kUryF8?si=X_kpOn4CDefmvvKH"/>
+   <VideoEmbed videoId="AczPuWS2BeQ?si=29lXFXkqh68Hu0so"/>
+   <Button isCentered>Заказать</Button>
+   <footer class="media_footer">
+      Gera2© Belarus, Mogilev 2025
+   </footer>
+</section>
+
+<style>
+    .media_section{
+        padding: 40px 10%;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    .media_button{
+        align-self: center;
+    }
+    .media_footer{
+        text-align: center;
+        font-size: 32px;
+        color: #000000;
+        font-weight: bold;
+        margin-top: 30px;
+    }
+</style>

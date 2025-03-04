@@ -1,0 +1,61 @@
+---
+interface Props {
+    isCentered?:boolean
+}
+const { isCentered= false, } = Astro.props
+---
+
+
+<button class:list={['primary_button',{'primary_button_centered': isCentered}]}>
+    <slot />
+</button>
+
+<style>
+    .primary_button {
+        padding: 14px 150px;
+        height: 74px;
+        background: linear-gradient(150deg, rgba(24, 24, 30, 0.85) 4%, rgba(28, 143, 225, 0.85) 94%);
+        box-shadow: 0 10px 17px rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        width: fit-content;
+        cursor: pointer;
+        box-sizing: border-box;
+        font-size: 32px;
+        position: relative;
+        z-index: 10;
+        border: none;
+        color: white;
+        transition: all 0.3s ease-in-out;
+        overflow: hidden;
+        &.primary_button_centered{
+            align-self: center;
+        }
+    }
+
+
+    .primary_button:hover {
+        background: linear-gradient(150deg, rgba(24, 24, 30, 0.9) 4%, rgba(29, 108, 200, 0.9) 94%);
+        box-shadow: 0 15px 25px rgba(0, 119, 255, 0.6);
+        transform: scale(1.05);
+    }
+    .primary_button:active {
+        transform: scale(0.95);
+        box-shadow: 0 5px 10px rgba(0, 119, 255, 0.4);
+    }
+
+    @media (max-width: 1024px) {
+        .primary_button {
+            padding: 10px 80px;
+            height: 64px;
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 660px) {
+        .primary_button {
+            width: 100%;
+            height: 54px;
+            align-self: center;
+        }
+    }
+</style>
