@@ -41,6 +41,7 @@ import BlockTitle, { BlockTitleType } from "../shared/components/BlockTitle.astr
         padding: 20px 10%;
         position: relative;
         border-radius: 8px;
+        box-shadow: 4px 5px 5px 0 rgba(80, 78, 78, 0.6);
     }
 
     .tool_img {
@@ -73,18 +74,26 @@ import BlockTitle, { BlockTitleType } from "../shared/components/BlockTitle.astr
 
         .main_sub_section {
             width: 100%;
+            padding: 10px 5%;
         }
 
         .tool_img {
             top: 0;
             height: 100%;
-            right: -15px;
+            right: -25px;
         }
 
         .main_footer {
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+    }
+    @media (max-width: 450px) {
+        .tool_img {
+            top: 30px;
+            height: 75%;
+            right: -25px;
         }
     }
 </style>
