@@ -6,17 +6,21 @@ import whatsUpIcon from "../../assets/contact_icons/watsup.svg";
 export const MODAL_DATA = {
   CONTACT_MODAL_ID: "contact_modal",
   CONTACTS: [
-    { href: "https://wa.me/1234567890", icon: whatsUpIcon, label: "WhatsApp" },
     {
-      href: "viber://chat?number=+1234567890",
+      href: "https://wa.me/+375296083656",
+      icon: whatsUpIcon,
+      label: "WhatsApp",
+    },
+    {
+      href: "viber://chat?number=+375296083656",
       icon: viberIcon,
       label: "Viber",
     },
     {
-      href: "https://t.me/yourusername",
+      href: "https://t.me/+375296083656",
       icon: telegramIcon,
       label: "Telegram",
     },
-    { href: "tel:+1234567890", icon: phoneIcon, label: "Позвонить" },
+    { href: "tel:+375296083656", icon: phoneIcon, label: "Позвонить" },
   ],
 };
