@@ -52,7 +52,6 @@ const { id } = Astro.props;
     box-shadow: 0 8px 8px 0 #00000040;
     opacity: 0.9;
     border-radius: 4px;
-    overflow: hidden;
 
     .ac-modal-close {
       color: #ffffff;
@@ -64,6 +63,10 @@ const { id } = Astro.props;
       font-size: 22px;
       display: flex;
       justify-content: center;
+    }
+
+    :global(.ac-modal-close) {
+      color: #ffffff;
     }
   }
 
