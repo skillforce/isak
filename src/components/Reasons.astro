@@ -4,10 +4,11 @@ import BlockTitle, {
 } from "../shared/components/BlockTitle.astro";
 import ReasonCard from "../shared/components/ReasonCard.astro";
 import { REASON_SECTION_DATA } from "../shared/data/reasonSectionData";
+import toolImage from "../assets/tool/tool2.png";
 ---
 
 <section class="reasons_section">
-  <img class="tool_img" src={"./tool2.png"} alt="image with product for sale" />
+  <img class="tool_img" src={toolImage.src} alt="image with product for sale" />
   <BlockTitle
     type={BlockTitleType.REASONS}
     title={REASON_SECTION_DATA.BLOCK_TITLE}

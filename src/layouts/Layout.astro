@@ -1,25 +1,54 @@
-
 ---
-import '../styles/fonts.css'
+import "../styles/fonts.css";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Гера2</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>Гера2 – Пескоструйный аппарат</title>
+
+    <meta
+      name="description"
+      content="Гера2 – мощный и надежный пескоструйный аппарат для эффективной очистки и обработки поверхностей."
+    />
+    <meta
+      name="keywords"
+      content="Гера2, пескоструйный аппарат, пескоструй, очистка, обработка поверхностей, промышленное оборудование"
+    />
+    <meta name="author" content="Ваше имя или компания" />
+
+    <!-- Open Graph for social media -->
+    <meta property="og:title" content="Гера2 – Пескоструйный аппарат" />
+    <meta
+      property="og:description"
+      content="Гера2 – надежное решение для пескоструйной обработки и очистки поверхностей."
+    />
+    <meta property="og:image" content="/og-image.jpg" />
+    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta property="og:type" content="product" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Гера2 – Пескоструйный аппарат" />
+    <meta
+      name="twitter:description"
+      content="Гера2 – надежное и эффективное решение для пескоструйной обработки."
+    />
+    <meta name="twitter:image" content="/twitter-image.jpg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
 <style>
-	body{
-		background-image: url("../assets/backgroundPrimary.svg");
-		background-size: contain;
-	}
+  body {
+    background-image: url("../assets/backgroundPrimary.svg");
+    background-size: auto;
+  }
 </style>

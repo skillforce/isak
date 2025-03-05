@@ -5,11 +5,16 @@ import Benefits from "../components/Benefits.astro";
 import "../styles/reset.css";
 import Reasons from "../components/Reasons.astro";
 import Media from "../components/Media.astro";
+import PopUp from "../shared/components/Modal.astro";
+import { MODAL_DATA } from "../shared/data/modal_data";
 ---
 
 <Layout>
+  <PopUp id={MODAL_DATA.CONTACT_MODAL_ID} />
   <Main />
   <Benefits />
   <Reasons />
   <Media />
 </Layout>
+
+<style></style>

@@ -2,11 +2,14 @@
 import Button from "../shared/components/Button.astro";
 import VideoEmbed from "../shared/components/VideoEmbed.astro";
 import { MEDIA_SECTION_DATA } from "../shared/data/mediaSectionData";
+import { MODAL_DATA } from "../shared/data/modal_data";
 ---
 
 <section class="media_section">
   {MEDIA_SECTION_DATA.VIDEOS_ID.map((id) => <VideoEmbed videoId={id} />)}
-  <Button isCentered>{MEDIA_SECTION_DATA.BUTTON_TITLE}</Button>
+  <Button data-modal-trigger={MODAL_DATA.CONTACT_MODAL_ID} isCentered
+    >{MEDIA_SECTION_DATA.BUTTON_TITLE}</Button
+  >
   <footer class="media_footer">
     {MEDIA_SECTION_DATA.COMPANY_NAME}
     <br />
@@ -21,14 +24,11 @@ import { MEDIA_SECTION_DATA } from "../shared/data/mediaSectionData";
     flex-direction: column;
     gap: 30px;
   }
-  .media_button {
-    align-self: center;
-  }
   .media_footer {
     text-align: center;
     font-size: 18px;
     color: #000000;
     font-weight: bold;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 </style>

@@ -1,0 +1,48 @@
+---
+interface Props {
+  href: string;
+  icon: ImageMetadata;
+  label: string;
+}
+
+const { href, icon, label } = Astro.props;
+---
+
+<a href={href} class="contact-link" target="_blank">
+  <img src={icon.src} alt={`${label} icon`} class="icon" />
+  {label}
+</a>
+
+<style>
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: underline;
+    font-family: "Sansation", sans-serif;
+    padding: 20px 15px;
+    width: 160px;
+    color: #ffffff;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+    font-size: 22px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .contact-link:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 660px) {
+    .contact-link {
+      width: 175px;
+      font-size: 20px;
+      padding: 15px 15px;
+    }
+  }
+</style>
