@@ -6,6 +6,7 @@ import {
 } from "free-astro-components";
 import ContactLink from "./ContactLink.astro";
 import { MODAL_DATA } from "../data/modal_data";
+import Sticker from "./Sticker.astro";
 
 interface Props {
   id: string;
@@ -15,6 +16,7 @@ const { id } = Astro.props;
 
 <FreeModal id={id} class="contact_modal">
   <ModalHeader> Наши контакты : </ModalHeader>
+  <Sticker />
   <ModalBody>
     <div class="contact_modal_body">
       {

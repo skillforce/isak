@@ -1,0 +1,115 @@
+---
+
+---
+
+<div class="sticker-wrapper">
+  <aside class="sticker yellow">
+    <p>Цена 150BYN</p>
+    <span class="fold"></span>
+  </aside>
+</div>
+
+<style>
+  .sticker-wrapper {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 20px;
+    position: absolute;
+    transform: rotate(-20deg);
+    left: 10px;
+    top: 30px;
+  }
+  .sticker {
+    position: relative;
+    display: table;
+    width: 8em;
+    height: 8em;
+    padding: 0.5em 1em;
+    border-radius: 100%;
+    background: rgb(119, 129, 241);
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .sticker p {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #ffffff;
+  }
+  .sticker .fold {
+    content: "";
+    display: block;
+    width: 10em;
+    height: 10em;
+    position: absolute;
+    right: -6em;
+    top: -6em;
+    border-radius: 100%;
+    background: -webkit-linear-gradient(
+      -135deg,
+      transparent 11.3em,
+      #4da7ea 10em,
+      #3493b3 10em,
+      #181965 85%
+    );
+  }
+
+  .sticker.yellow {
+    background: rgb(31, 118, 156);
+    background: -webkit-linear-gradient(
+      -135deg,
+      transparent 2.82em,
+      rgb(116, 120, 223) 0,
+      rgb(25, 36, 85)
+    );
+  }
+
+  @media (max-width: 660px) {
+    .sticker-wrapper {
+      font-size: 16px;
+    }
+    .sticker {
+      width: 7em;
+      height: 7em;
+      padding: 0.25em 0.5em;
+    }
+  }
+  @media (max-width: 640px) {
+    .sticker-wrapper {
+      font-size: 18px;
+    }
+    .sticker {
+      width: 8em;
+      height: 8em;
+      padding: 0.5em 1em;
+    }
+  }
+  @media (max-width: 470px) {
+    .sticker-wrapper {
+      font-size: 16px;
+    }
+    .sticker {
+      width: 7em;
+      height: 7em;
+      padding: 0.25em;
+    }
+    .sticker p {
+      position: relative;
+      z-index: 99;
+    }
+  }
+  @media (max-width: 390px) {
+    .sticker-wrapper {
+      font-size: 14px;
+    }
+    .sticker {
+      width: 6.35em;
+      height: 6.35em;
+      padding: 0.15em;
+    }
+    .sticker p {
+      position: relative;
+      z-index: 99;
+    }
+  }
+</style>
