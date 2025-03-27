@@ -5,6 +5,7 @@ import whatsUpIcon from "../../assets/contact_icons/watsup.svg";
 
 export const MODAL_DATA = {
   CONTACT_MODAL_ID: "contact_modal",
+  sticker_price_text: "Цена 150BYN",
   CONTACTS: [
     {
       href: "https://wa.me/+375296083656",
