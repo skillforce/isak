@@ -1,15 +1,30 @@
 ---
 import Button from "../shared/components/Button.astro";
+import ToolOptionCard from "../components/ToolOptionCard.astro";
 import VideoEmbed from "../shared/components/VideoEmbed.astro";
-import { MEDIA_SECTION_DATA } from "../shared/data/mediaSectionData";
+import { MEDIA_SECTION_DATA,TOOL_OPTIONS } from "../shared/data/mediaSectionData";
 import { MODAL_DATA } from "../shared/data/modal_data";
+
+
+
 ---
 
 <section class="media_section">
   {MEDIA_SECTION_DATA.VIDEOS_ID.map((id) => <VideoEmbed videoId={id} />)}
-  <Button data-modal-trigger={MODAL_DATA.CONTACT_MODAL_ID} isCentered
-    >{MEDIA_SECTION_DATA.BUTTON_TITLE}</Button
-  >
+  <div class="tool_options_container" id="tool_options">
+  {TOOL_OPTIONS.map(
+    ({toolName, toolDescription,options, image}) => (
+      <ToolOptionCard
+        image={image}
+        name={toolName}
+        description={toolDescription}
+        options={options}
+        buttonText={MEDIA_SECTION_DATA.BUTTON_TITLE}
+        modalId={MODAL_DATA.CONTACT_MODAL_ID}
+      />
+    )
+  )}
+  </div>
   <footer class="media_footer">
     {MEDIA_SECTION_DATA.COMPANY_NAME}
     <br />
@@ -18,8 +33,11 @@ import { MODAL_DATA } from "../shared/data/modal_data";
 </section>
 
 <style>
+  :global(.tool_options_container > .tool_option_card_container:nth-child(even)) {
+    flex-direction: row-reverse;
+  }
   .media_section {
-    padding: 40px 10%;
+    padding: 40px 5%;
     display: flex;
     flex-direction: column;
     gap: 30px;

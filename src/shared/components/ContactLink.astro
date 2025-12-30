@@ -3,13 +3,21 @@ interface Props {
   href: string;
   icon: ImageMetadata;
   label: string;
+  "data-contact-type": string;
+  "data-contact-base": string;
 }
 
-const { href, icon, label } = Astro.props;
+const { href, icon, label, ...rest } = Astro.props;
 ---
 
-<a href={href} class="contact-link" target="_blank">
-  <img src={icon.src} alt={`${label} icon`} class="icon" />
+<a href={href} class="contact-link" target="_blank" rel="noopener noreferrer" data-contact-type={rest['data-contact-type']} data-contact-base={rest['data-contact-base']} >
+  <img
+    src={icon.src}
+    alt={`${label} icon`}
+    class="icon"
+    loading="lazy"
+    decoding="async"
+  />
   {label}
 </a>
 
@@ -29,13 +37,14 @@ const { href, icon, label } = Astro.props;
     font-size: 22px;
   }
 
+  .contact-link:hover {
+    opacity: 0.8;
+  }
+
   .icon {
     width: 30px;
     height: 30px;
-  }
-
-  .contact-link:hover {
-    opacity: 0.8;
+    object-fit: contain;
   }
 
   @media (max-width: 660px) {

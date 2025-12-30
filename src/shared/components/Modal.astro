@@ -4,15 +4,64 @@ import {
   ModalBody,
   ModalHeader,
 } from "free-astro-components";
-import ContactLink from "./ContactLink.astro";
+
 import { MODAL_DATA } from "../data/modal_data";
 import Sticker from "./Sticker.astro";
+import ContactLink from "./ContactLink.astro";
 
 interface Props {
   id: string;
 }
 const { id } = Astro.props;
 ---
+
+<script>
+  import type { ContactType } from "../data/modal_data.ts";
+
+
+  function buildMessage({ toolName }: { toolName: string }) {
+    return `Здравствуйте! Хотел бы заказать ${toolName}.`
+  }
+
+  function buildLink(type:ContactType, base:string, message:string) {
+    const text = encodeURIComponent(message);
+
+    switch (type) {
+      case "whatsapp":
+        return `${base}?text=${text}`;
+
+      case "telegram":
+        return `${base}&text=${text}&profile`;
+
+      case "viber":
+        return `${base}&draft=${text}`;
+
+      default:
+        return base;
+    }
+  }
+  document.addEventListener("click", (event) => {
+    const trigger = event.target!.closest("[data-modal-trigger]");
+    if (!trigger) return;
+
+    const data = {
+      toolName: trigger.dataset.modalName,
+    };
+
+    if (!data.toolName) return;
+
+    const message = buildMessage(data);
+    console.log(message);
+
+    document.querySelectorAll("[data-contact-type]").forEach((link) => {
+      const type = link.dataset!.contactType;
+      const base = link.dataset!.contactBase;
+
+      link.href = buildLink(type, base, message);
+    });
+  });
+</script>
+
 
 <FreeModal id={id} class="contact_modal">
   <ModalHeader> Наши контакты : </ModalHeader>
@@ -25,6 +74,9 @@ const { id } = Astro.props;
             href={contact.href}
             icon={contact.icon}
             label={contact.label}
+            data-contact-type={contact.type}
+            data-contact-base={contact.href}
+
           />
         ))
       }

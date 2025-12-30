@@ -1,19 +1,30 @@
 ---
-import { Button as FreeButton } from "free-astro-components";
 interface Props {
   isCentered?: boolean;
   "data-modal-trigger"?: string;
+  "data-modal-name"?: string;
+  toSectionHref?: string;
 }
 
 const props = Astro.props as Props;
 ---
 
+{props.toSectionHref ? (
+<a
+  href={`#${props.toSectionHref}`}
+  class:list={["primary_button", { primary_button_centered: props.isCentered }]}
+>
+  <slot />
+</a>
+  ) : (
 <button
   data-modal-trigger={props["data-modal-trigger"]}
+  data-modal-name={props["data-modal-name"]}
   class:list={["primary_button", { primary_button_centered: props.isCentered }]}
 >
   <slot />
 </button>
+  )}
 
 <style>
   :root {
@@ -21,6 +32,11 @@ const props = Astro.props as Props;
   }
 
   .primary_button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
     padding: 14px 150px;
     height: 74px;
     background: linear-gradient(

@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "isak_peskostrui",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,12 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.4.1",
-    "free-astro-components": "^1.2.0",
-    "sass": "^1.85.1"
+    "astro": "^5.16.6",
+    "free-astro-components": "^1.2.1",
+    "sass": "^1.97.1"
   },
   "devDependencies": {
-    "prettier": "^3.5.3",
+    "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1"
   }
 }

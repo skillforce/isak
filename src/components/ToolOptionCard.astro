@@ -1,0 +1,196 @@
+---
+import Button from "../shared/components/Button.astro";
+
+interface ToolOption {
+  text: string;
+  price: number;
+}
+
+interface Props {
+  image: ImageMetadata;
+  name: string;
+  description: string;
+  options: ToolOption[];
+  buttonText: string;
+  modalId: string;
+}
+
+const {
+  image,
+  name,
+  description,
+  options,
+  buttonText,
+  modalId,
+} = Astro.props;
+---
+
+<div class="tool_option_card_container">
+  <div>
+    <img
+      class="tool_img_wide"
+      src={image.src}
+      alt="image with product option for sale"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+
+  <div class="tool_description">
+    <div class="tool_title_container">
+      <div class="tool_name">{name}</div>
+      <div class="tool_desc">{description}</div>
+    </div>
+
+    <img
+      class="tool_img_narrow"
+      src={image.src}
+      alt="image with product option for sale"
+      loading="lazy"
+      decoding="async"
+    />
+
+    <div class="tool_options">
+      {options.map((option, index) => (
+        <span class="tool_option_text">
+          {index + 1}. {option.text} –{" "}
+          <span class="tool_option_price">
+            {option.price} BYN
+          </span>
+        </span>
+      ))}
+    </div>
+
+    <Button data-modal-trigger={modalId}  data-modal-name={name} isCentered>
+      {buttonText}
+    </Button>
+  </div>
+</div>
+
+<style>
+  .tool_option_card_container{
+    display: flex;
+    align-items: center;
+    margin-top: 80px;
+    justify-content: center;
+    @media screen {
+      @media (max-width: 660px) {
+        margin-top: 40px;
+      }
+    }
+  }
+
+  .tool_description{
+    display: flex;
+    flex-direction: column;
+    gap:60px;
+    @media screen {
+      @media (max-width: 1200px) {
+        gap:20px;
+      }
+      @media (max-width: 660px) {
+        gap:10px;
+      }
+    }
+  }
+
+  .tool_title_container{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    @media screen {
+      @media (max-width: 860px) {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  }
+
+  .tool_name{
+    font-weight: 700;
+    font-size: 70px;
+    text-transform: uppercase;
+    color:#B05AAE;
+    @media screen {
+      @media (max-width: 660px) {
+        font-size: 40px;
+      }
+    }
+  }
+
+  .tool_desc{
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: uppercase;
+    color:#000;
+    max-width: 600px;
+    text-wrap: balance;
+
+    @media screen {
+      @media (max-width: 660px) {
+        font-size: 18px;
+      }
+      @media (max-width: 400px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .tool_options {
+    position: relative;
+    margin: 30px 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(10, 10, 207, 0.3);
+    max-width: 700px;
+  }
+
+  .tool_option_text {
+    font-size: 24px;
+    text-transform: uppercase;
+    color:#080808;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
+    text-wrap: balance;
+    @media screen {
+      @media (max-width: 660px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .tool_option_price {
+    font-weight: 500;
+    font-size: 24px;
+    color: #B05AAE;
+  }
+
+  .tool_img_wide{
+    height: 625px;
+    width: 400px;
+    @media screen {
+      @media (max-width: 1200px) {
+        display: none;
+      }
+    }
+  }
+
+  .tool_img_narrow{
+    height: 500px;
+    width: 300px;
+    display: none;
+    align-self: center;
+    @media screen {
+      @media (max-width: 1200px) {
+        display: inline;
+      }
+      @media (max-width: 660px) {
+        height: 350px;
+        width: 200px;
+      }
+    }
+  }
+</style>
