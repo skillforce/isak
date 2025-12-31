@@ -9,19 +9,17 @@ export type ContactType = "whatsapp" | "viber" | "telegram" | "phone";
 export interface Contact {
   type: ContactType;
   href: string;
-  icon: typeof whatsUpIcon; // or ImageMetadata if using Astro's image type
+  icon: typeof whatsUpIcon
   label: string;
 }
 
 export interface ModalData {
   CONTACT_MODAL_ID: string;
-  sticker_price_text: string;
   CONTACTS: Contact[];
 }
 
 export const MODAL_DATA:ModalData = {
   CONTACT_MODAL_ID: "contact_modal",
-  sticker_price_text: "Цена 150BYN",
   CONTACTS: [
     {
       type: "whatsapp",

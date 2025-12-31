@@ -1,9 +1,11 @@
 ---
-import Button from "../shared/components/Button.astro";
+
 import ToolOptionCard from "../components/ToolOptionCard.astro";
 import VideoEmbed from "../shared/components/VideoEmbed.astro";
 import { MEDIA_SECTION_DATA,TOOL_OPTIONS } from "../shared/data/mediaSectionData";
 import { MODAL_DATA } from "../shared/data/modal_data";
+
+
 
 
 
@@ -21,6 +23,7 @@ import { MODAL_DATA } from "../shared/data/modal_data";
         options={options}
         buttonText={MEDIA_SECTION_DATA.BUTTON_TITLE}
         modalId={MODAL_DATA.CONTACT_MODAL_ID}
+        isBY={false}
       />
     )
   )}

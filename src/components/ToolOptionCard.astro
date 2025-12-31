@@ -1,9 +1,13 @@
 ---
 import Button from "../shared/components/Button.astro";
 
+interface ToolOptionCardProps {
+  RU: number;
+  BY: number;
+}
 interface ToolOption {
   text: string;
-  price: number;
+  price: ToolOptionCardProps;
 }
 
 interface Props {
@@ -13,16 +17,11 @@ interface Props {
   options: ToolOption[];
   buttonText: string;
   modalId: string;
+  isBY: boolean;
 }
 
-const {
-  image,
-  name,
-  description,
-  options,
-  buttonText,
-  modalId,
-} = Astro.props;
+const { image, name, description, options, buttonText, modalId, isBY } =
+  Astro.props;
 ---
 
 <div class="tool_option_card_container">
@@ -51,24 +50,27 @@ const {
     />
 
     <div class="tool_options">
-      {options.map((option, index) => (
-        <span class="tool_option_text">
-          {index + 1}. {option.text} –{" "}
-          <span class="tool_option_price">
-            {option.price} BYN
+      {
+        options.map((option, index) => (
+          <span class="tool_option_text">
+            {index + 1}. {option.text} –{" "}
+            <span class="tool_option_price">
+              {isBY ? option.price.BY : option.price.RU}
+              {isBY ? " BYN" : " RUB"}
+            </span>
           </span>
-        </span>
-      ))}
+        ))
+      }
     </div>
 
-    <Button data-modal-trigger={modalId}  data-modal-name={name} isCentered>
+    <Button data-modal-trigger={modalId} data-modal-name={name} isCentered>
       {buttonText}
     </Button>
   </div>
 </div>
 
 <style>
-  .tool_option_card_container{
+  .tool_option_card_container {
     display: flex;
     align-items: center;
     margin-top: 80px;
@@ -80,21 +82,21 @@ const {
     }
   }
 
-  .tool_description{
+  .tool_description {
     display: flex;
     flex-direction: column;
-    gap:60px;
+    gap: 60px;
     @media screen {
       @media (max-width: 1200px) {
-        gap:20px;
+        gap: 20px;
       }
       @media (max-width: 660px) {
-        gap:10px;
+        gap: 10px;
       }
     }
   }
 
-  .tool_title_container{
+  .tool_title_container {
     display: flex;
     align-items: center;
     gap: 40px;
@@ -106,11 +108,11 @@ const {
     }
   }
 
-  .tool_name{
+  .tool_name {
     font-weight: 700;
     font-size: 70px;
     text-transform: uppercase;
-    color:#B05AAE;
+    color: #b05aae;
     @media screen {
       @media (max-width: 660px) {
         font-size: 40px;
@@ -118,11 +120,11 @@ const {
     }
   }
 
-  .tool_desc{
+  .tool_desc {
     font-weight: 400;
     font-size: 25px;
     text-transform: uppercase;
-    color:#000;
+    color: #000;
     max-width: 600px;
     text-wrap: balance;
 
@@ -152,7 +154,7 @@ const {
   .tool_option_text {
     font-size: 24px;
     text-transform: uppercase;
-    color:#080808;
+    color: #080808;
     text-shadow: 0 2px 2px rgba(0, 0, 0, 0.45);
     text-wrap: balance;
     @media screen {
@@ -165,10 +167,10 @@ const {
   .tool_option_price {
     font-weight: 500;
     font-size: 24px;
-    color: #B05AAE;
+    color: #b05aae;
   }
 
-  .tool_img_wide{
+  .tool_img_wide {
     height: 625px;
     width: 400px;
     @media screen {
@@ -178,7 +180,7 @@ const {
     }
   }
 
-  .tool_img_narrow{
+  .tool_img_narrow {
     height: 500px;
     width: 300px;
     display: none;

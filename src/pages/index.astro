@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import Benefits from "../components/Benefits.astro";
@@ -10,6 +11,7 @@ import "../styles/reset.css";
 ---
 
 <Layout>
+  <div>Your IP address is: <span class="address">{Astro.clientAddress}</span></div>
   <PopUp id={MODAL_DATA.CONTACT_MODAL_ID} />
   <Main />
   <Benefits />
@@ -23,7 +25,6 @@ import "../styles/reset.css";
   const modalElement = document.querySelector(
     `#${MODAL_DATA.CONTACT_MODAL_ID}`
   );
-  console.log(modalElement);
   modalElement?.addEventListener("close", () => {
     document.body.style.overflow = "auto";
   });
