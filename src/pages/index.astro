@@ -8,29 +8,60 @@ import PopUp from "../shared/components/Modal.astro";
 import { MODAL_DATA } from "../shared/data/modal_data";
 import "../styles/reset.css";
 
-const country =
-  Astro.request.headers.get('x-vercel-ip-country') ?? 'UNKNOWN';
-const isBY = country === 'BY';
+// Server-side: Get country from request headers or IP
+const clientIP = Astro.request.headers.get("cf-connecting-ip") ||
+  Astro.request.headers.get("x-forwarded-for")?.split(",")[0] ||
+  "unknown";
+
+let isBY = false;
+
+if (clientIP && clientIP !== "unknown") {
+  try {
+    const token = "cc6c23fd5592bb";
+    const response = await fetch(`https://ipinfo.io/${clientIP}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    isBY = data.country === "BY";
+  } catch (err) {
+    console.error("Error fetching IP info:", err);
+  }
+}
 
 ---
 
-<script>
-  fetch('https://api64.ipify.org?format=json')
-    .then(r => r.json())
-    .then(data => {
-      console.log('Client IP:', data.ip);
-    });
-  const isBY = Astro.request.headers.get('x-vercel-ip-country')
-  console.log('COUNTRY',isBY);
-</script>
+<!--<script>-->
+<!--  let isBY = false;-->
+<!--  fetch('https://api64.ipify.org?format=json')-->
+<!--    .then(r => r.json())-->
+<!--    .then(data => {-->
+<!--      const token = "cc6c23fd5592bb";-->
+
+<!--      fetch(`https://ipinfo.io/${data.ip}`, {-->
+<!--        headers: {-->
+<!--          "Authorization": `Bearer ${token}`-->
+<!--        }-->
+<!--      })-->
+<!--        .then(res => res.json())-->
+<!--        .then(data => {-->
+<!--          console.log(data.country);-->
+<!--          isBY= data.country ==='BY'-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--          console.error("Error fetching IP info:", err);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
 
 <Layout>
-  <div>Country{country}</div>
+  <div>clientIP: {clientIP}</div>
   <PopUp id={MODAL_DATA.CONTACT_MODAL_ID} />
   <Main />
   <Benefits />
   <Reasons />
-  <Media />
+  <Media isBY={isBY} />
 </Layout>
 
 <script>

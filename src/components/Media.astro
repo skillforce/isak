@@ -5,8 +5,10 @@ import VideoEmbed from "../shared/components/VideoEmbed.astro";
 import { MEDIA_SECTION_DATA,TOOL_OPTIONS } from "../shared/data/mediaSectionData";
 import { MODAL_DATA } from "../shared/data/modal_data";
 
-
-
+interface Props {
+  isBY: boolean;
+}
+const{isBY}=Astro.props
 
 
 ---
@@ -23,7 +25,7 @@ import { MODAL_DATA } from "../shared/data/modal_data";
         options={options}
         buttonText={MEDIA_SECTION_DATA.BUTTON_TITLE}
         modalId={MODAL_DATA.CONTACT_MODAL_ID}
-        isBY={false}
+        isBY={isBY}
       />
     )
   )}

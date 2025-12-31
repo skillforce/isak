@@ -1,5 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import solid from '@astrojs/solid-js';
+
 
 import vercel from '@astrojs/vercel';
 
@@ -9,5 +11,7 @@ export default defineConfig({
     webAnalytics: {
       enabled: true,
     },
-  })
+  }),
+  integrations: [solid()],
+  output: 'static',
 });
