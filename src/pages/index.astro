@@ -1,5 +1,4 @@
 ---
-export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import Benefits from "../components/Benefits.astro";
@@ -10,11 +9,19 @@ import { MODAL_DATA } from "../shared/data/modal_data";
 import "../styles/reset.css";
 
 
-console.log( Astro.request.headers.get('x-vercel-ip-country'))
 ---
 
+<script>
+  fetch('https://api64.ipify.org?format=json')
+    .then(r => r.json())
+    .then(data => {
+      console.log('Client IP:', data.ip);
+    });
+  const isBY = Astro.request.headers.get('x-vercel-ip-country')
+  console.log('COUNTRY',isBY);
+</script>
+
 <Layout>
-  <div>Your IP address is: <span class="address">{Astro.clientAddress}</span></div>
   <PopUp id={MODAL_DATA.CONTACT_MODAL_ID} />
   <Main />
   <Benefits />
