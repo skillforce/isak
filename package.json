@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^9.0.2",
     "astro": "^5.16.6",
     "free-astro-components": "^1.2.1",
     "sass": "^1.97.1"
