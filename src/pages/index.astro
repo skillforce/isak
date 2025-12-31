@@ -1,4 +1,5 @@
 ---
+export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import Benefits from "../components/Benefits.astro";
@@ -8,10 +9,7 @@ import PopUp from "../shared/components/Modal.astro";
 import { MODAL_DATA } from "../shared/data/modal_data";
 import "../styles/reset.css";
 
-// Server-side: Get country from request headers or IP
-const clientIP = Astro.request.headers.get("cf-connecting-ip") ||
-  Astro.request.headers.get("x-forwarded-for")?.split(",")[0] ||
-  "unknown";
+const clientIP = Astro.clientAddress|| "unknown";
 
 let isBY = false;
 
