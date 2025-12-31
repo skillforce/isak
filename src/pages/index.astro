@@ -8,6 +8,9 @@ import Media from "../components/Media.astro";
 import PopUp from "../shared/components/Modal.astro";
 import { MODAL_DATA } from "../shared/data/modal_data";
 import "../styles/reset.css";
+
+
+console.log( Astro.request.headers.get('x-vercel-ip-country'))
 ---
 
 <Layout>
