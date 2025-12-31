@@ -30,29 +30,6 @@ if (clientIP && clientIP !== "unknown") {
 
 ---
 
-<!--<script>-->
-<!--  let isBY = false;-->
-<!--  fetch('https://api64.ipify.org?format=json')-->
-<!--    .then(r => r.json())-->
-<!--    .then(data => {-->
-<!--      const token = "cc6c23fd5592bb";-->
-
-<!--      fetch(`https://ipinfo.io/${data.ip}`, {-->
-<!--        headers: {-->
-<!--          "Authorization": `Bearer ${token}`-->
-<!--        }-->
-<!--      })-->
-<!--        .then(res => res.json())-->
-<!--        .then(data => {-->
-<!--          console.log(data.country);-->
-<!--          isBY= data.country ==='BY'-->
-<!--        })-->
-<!--        .catch(err => {-->
-<!--          console.error("Error fetching IP info:", err);-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
-
 <Layout>
   <div>clientIP: {clientIP}</div>
   <PopUp id={MODAL_DATA.CONTACT_MODAL_ID} />
