@@ -35,7 +35,7 @@ export const MODAL_DATA:ModalData = {
     },
     {
       type: "telegram",
-      href: "tg://resolve?domain=+375447003309",
+      href: "tg://resolve?domain=@voxel44",
       icon: telegramIcon,
       label: "Telegram",
     },
