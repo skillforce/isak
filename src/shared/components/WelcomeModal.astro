@@ -1,0 +1,105 @@
+---
+import {
+  Modal as FreeModal,
+  ModalBody,
+  ModalHeader,
+} from "free-astro-components";
+
+import politicsPdf from "../../assets/politics/politics.pdf";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<FreeModal id={id} class="welcome_modal">
+  <ModalHeader>Добро пожаловать!</ModalHeader>
+  <ModalBody>
+    <div class="welcome_modal_body">
+      <div class="welcome_modal_text">
+        Для корректной работы сайта и вашего удобства мы используем файлы
+        cookie.
+      </div>
+      <div class="welcome_modal_text">
+        Нажимая «Принять» или пользуясь этим сайтом, вы даёте согласие на обработку персональных данных и
+        файлов cookie в соответствии с{" "}
+        <a href={politicsPdf} target="_blank" rel="noopener noreferrer">
+          Политикой обработки
+        </a>
+        этих данных.
+      </div>
+    </div>
+    <div class="welcome_modal_button_container">
+      <button class="accept_button" data-modal-close>Принять</button>
+    </div>
+  </ModalBody>
+</FreeModal>
+
+<style>
+  :global(.welcome_modal) {
+    background: rgb(0, 75, 164);
+    background: radial-gradient(
+      circle,
+      rgba(0, 75, 164, 1) 3%,
+      rgba(109, 123, 240, 1) 100%
+    );
+    opacity: 0.95;
+    border-radius: 4px;
+
+    .ac-modal-close {
+      color: #ffffff;
+    }
+    .ac-modal-header {
+      color: #ffffff;
+      font-family: "Sansation", sans-serif;
+      font-weight: bold;
+      font-size: 22px;
+      display: flex;
+      justify-content: center;
+    }
+
+    :global(.ac-modal-close) {
+      color: #ffffff;
+    }
+  }
+
+  .welcome_modal_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 15px 0;
+    letter-spacing: 1px;
+  }
+
+  .welcome_modal_text {
+    color: #ffffff;
+    font-size: 18px;
+    text-align: start;
+    text-wrap: balance;
+
+  }
+
+  .welcome_modal_text a {
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .welcome_modal_button_container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .accept_button {
+    color: rgb(0, 75, 164);
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+</style>
