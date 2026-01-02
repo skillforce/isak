@@ -15,11 +15,13 @@ export interface Contact {
 
 export interface ModalData {
   CONTACT_MODAL_ID: string;
+  WELCOME_MODAL_ID: string;
   CONTACTS: Contact[];
 }
 
 export const MODAL_DATA:ModalData = {
   CONTACT_MODAL_ID: "contact_modal",
+  WELCOME_MODAL_ID: "welcome_modal",
   CONTACTS: [
     {
       type: "whatsapp",

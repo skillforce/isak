@@ -6,6 +6,7 @@ import Benefits from "../components/Benefits.astro";
 import Reasons from "../components/Reasons.astro";
 import Media from "../components/Media.astro";
 import PopUp from "../shared/components/Modal.astro";
+import WelcomeModal from "../shared/components/WelcomeModal.astro";
 import { MODAL_DATA } from "../shared/data/modal_data";
 import "../styles/reset.css";
 
@@ -31,6 +32,7 @@ if (clientIP && clientIP !== "unknown") {
 ---
 
 <Layout>
+  <WelcomeModal id={MODAL_DATA.WELCOME_MODAL_ID} />
   <PopUp id={MODAL_DATA.CONTACT_MODAL_ID} />
   <Main />
   <Benefits />
@@ -39,7 +41,31 @@ if (clientIP && clientIP !== "unknown") {
 </Layout>
 
 <script>
+  import { openModal } from "free-astro-components";
   import { MODAL_DATA } from "../shared/data/modal_data";
+
+  const WELCOME_MODAL_STORAGE_KEY = "welcome_modal_shown";
+
+  const welcomeModal = document.querySelector(
+    `#${MODAL_DATA.WELCOME_MODAL_ID}`
+  );
+  if (welcomeModal) {
+    welcomeModal.addEventListener("close", () => {
+      document.body.style.overflow = "auto";
+        localStorage.setItem(WELCOME_MODAL_STORAGE_KEY, "1");
+    });
+
+    let shown = false;
+    try {
+      shown = localStorage.getItem(WELCOME_MODAL_STORAGE_KEY) === "1";
+    } catch {
+      shown = false;
+    }
+
+    if (!shown) {
+      openModal(welcomeModal);
+    }
+  }
 
   const modalElement = document.querySelector(
     `#${MODAL_DATA.CONTACT_MODAL_ID}`
