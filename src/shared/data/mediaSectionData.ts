@@ -11,8 +11,8 @@ export const MEDIA_SECTION_DATA = {
   ],
   BUTTON_TITLE: "Заказать",
   COMPANY_NAME: "Gera2 ©",
-  COMPANY_OWNER: " ИП Исаков Дмитрий Иванович",
-  LOCATION_TIME: "Belarus, Mogilev 2026",
+  COMPANY_OWNER: "ИП Исаков Дмитрий Иванович",
+  OWNER_UNP: "УНП 790853087",
 };
 
 export const TOOL_OPTIONS = [
