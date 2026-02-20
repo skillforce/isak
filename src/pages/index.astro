@@ -1,5 +1,4 @@
 ---
-export const prerender = false;
 import Layout from "../layouts/Layout.astro";
 import Main from "../components/Main.astro";
 import Benefits from "../components/Benefits.astro";
@@ -9,26 +8,6 @@ import PopUp from "../shared/components/Modal.astro";
 import WelcomeModal from "../shared/components/WelcomeModal.astro";
 import { MODAL_DATA } from "../shared/data/modal_data";
 import "../styles/reset.css";
-
-const clientIP = Astro.clientAddress|| "unknown";
-
-let isBY = false;
-
-if (clientIP && clientIP !== "unknown") {
-  try {
-    const token = "cc6c23fd5592bb";
-    const response = await fetch(`https://ipinfo.io/${clientIP}`, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
-    const data = await response.json();
-    isBY = data.country === "BY";
-  } catch (err) {
-    console.error("Error fetching IP info:", err);
-  }
-}
-
 ---
 
 <Layout>
@@ -37,7 +16,7 @@ if (clientIP && clientIP !== "unknown") {
   <Main />
   <Benefits />
   <Reasons />
-  <Media isBY={isBY} />
+  <Media />
 </Layout>
 
 <script>
@@ -52,7 +31,7 @@ if (clientIP && clientIP !== "unknown") {
   if (welcomeModal) {
     welcomeModal.addEventListener("close", () => {
       document.body.style.overflow = "auto";
-        localStorage.setItem(WELCOME_MODAL_STORAGE_KEY, "1");
+      localStorage.setItem(WELCOME_MODAL_STORAGE_KEY, "1");
     });
 
     let shown = false;
@@ -73,4 +52,34 @@ if (clientIP && clientIP !== "unknown") {
   modalElement?.addEventListener("close", () => {
     document.body.style.overflow = "auto";
   });
+
+  function applyGeo(isBY: boolean) {
+    document
+      .querySelectorAll<HTMLElement>("[data-only='by']")
+      .forEach((el) => (el.style.display = isBY ? "" : "none"));
+    document
+      .querySelectorAll<HTMLElement>("[data-only='other']")
+      .forEach((el) => (el.style.display = isBY ? "none" : ""));
+  }
+
+  window.addEventListener("geo:by", (e: Event) =>
+    applyGeo((e as CustomEvent<{ isBY: boolean }>).detail.isBY)
+  );
+
+  (async () => {
+    try {
+      const token = "cc6c23fd5592bb";
+      const res = await fetch("https://ipinfo.io/json", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      const isBY = data?.country === "BY";
+
+      document.documentElement.dataset.isBy = isBY ? "1" : "0";
+      window.dispatchEvent(new CustomEvent("geo:by", { detail: { isBY } }));
+    } catch (e) {
+      console.error("Geo check failed:", e);
+      applyGeo(false);
+    }
+  })();
 </script>

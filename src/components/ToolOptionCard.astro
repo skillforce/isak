@@ -17,10 +17,9 @@ interface Props {
   options: ToolOption[];
   buttonText: string;
   modalId: string;
-  isBY: boolean;
 }
 
-const { image, name, description, options, buttonText, modalId, isBY } =
+const { image, name, description, options, buttonText, modalId } =
   Astro.props;
 ---
 
@@ -54,9 +53,11 @@ const { image, name, description, options, buttonText, modalId, isBY } =
         options.map((option, index) => (
           <span class="tool_option_text">
             {index + 1}. {option.text} –{" "}
-            <span class="tool_option_price">
-              {isBY ? option.price.BY : option.price.RU}
-              {isBY ? " BYN" : " RUB"}
+            <span class="tool_option_price" data-only="by" style="display: none;">
+              {option.price.BY} BYN
+            </span>
+            <span class="tool_option_price" data-only="other">
+              {option.price.RU} RUB
             </span>
           </span>
         ))
