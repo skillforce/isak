@@ -13,6 +13,8 @@ export const MEDIA_SECTION_DATA = {
   COMPANY_NAME: "Gera2 ©",
   COMPANY_OWNER: "ИП Исаков Дмитрий Иванович",
   OWNER_UNP: "УНП 790853087",
+  WEB_SOLUTIONS: "Веб-сайты и приложения для вашего бизнеса",
+  WEB_SOLUTIONS_LINK: "tg://resolve?domain=@vpnameonlife",
 };
 
 export const TOOL_OPTIONS = [
