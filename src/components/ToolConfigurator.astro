@@ -1,0 +1,18 @@
+---
+import ToolOptionCard from "./ToolOptionCard.astro";
+import { MEDIA_SECTION_DATA, TOOL_OPTIONS } from "../shared/data/mediaSectionData";
+import { MODAL_DATA } from "../shared/data/modal_data";
+---
+
+<div class="tool_options_container" id="tool_options">
+  {TOOL_OPTIONS.map(({ toolName, toolDescription, options, image }) => (
+    <ToolOptionCard
+      image={image}
+      name={toolName}
+      description={toolDescription}
+      options={options}
+      buttonText={MEDIA_SECTION_DATA.BUTTON_TITLE}
+      modalId={MODAL_DATA.CONTACT_MODAL_ID}
+    />
+  ))}
+</div>

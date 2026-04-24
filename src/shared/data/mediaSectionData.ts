@@ -1,6 +1,6 @@
-import classicImage from "../../assets/tool/tool.png";
-import ecoImg from "../../assets/tool/eco.png";
-import titanImg from "../../assets/tool/titan.png";
+import classicImage from "../../assets/tool/tool.avif";
+import ecoImg from "../../assets/tool/eco.avif";
+import titanImg from "../../assets/tool/titan.avif";
 
 
 

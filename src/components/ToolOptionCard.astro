@@ -19,41 +19,36 @@ interface Props {
   modalId: string;
 }
 
-const { image, name, description, options, buttonText, modalId } =
-  Astro.props;
+const { image, name, description, options, buttonText, modalId } = Astro.props;
 ---
 
 <div class="tool_option_card_container">
-  <div>
+  <div class="tool_description">
     <img
-      class="tool_img_wide"
+      class="tool_img"
       src={image.src}
+      width={image.width}
+      height={image.height}
       alt="image with product option for sale"
       loading="lazy"
       decoding="async"
     />
-  </div>
 
-  <div class="tool_description">
     <div class="tool_title_container">
       <div class="tool_name">{name}</div>
       <div class="tool_desc">{description}</div>
     </div>
-
-    <img
-      class="tool_img_narrow"
-      src={image.src}
-      alt="image with product option for sale"
-      loading="lazy"
-      decoding="async"
-    />
 
     <div class="tool_options">
       {
         options.map((option, index) => (
           <span class="tool_option_text">
             {index + 1}. {option.text} –{" "}
-            <span class="tool_option_price" data-only="by" style="display: none;">
+            <span
+              class="tool_option_price"
+              data-only="by"
+              style="display: none;"
+            >
               {option.price.BY} BYN
             </span>
             <span class="tool_option_price" data-only="other">
@@ -64,18 +59,17 @@ const { image, name, description, options, buttonText, modalId } =
       }
     </div>
 
-    <Button data-modal-trigger={modalId} data-modal-name={name} isCentered>
-      {buttonText}
-    </Button>
+    <div class="tool_action">
+      <Button data-modal-trigger={modalId} data-modal-name={name} isCentered>
+        {buttonText}
+      </Button>
+    </div>
   </div>
 </div>
 
 <style>
   .tool_option_card_container {
-    display: flex;
-    align-items: center;
     margin-top: 80px;
-    justify-content: center;
     @media screen {
       @media (max-width: 660px) {
         margin-top: 40px;
@@ -84,20 +78,42 @@ const { image, name, description, options, buttonText, modalId } =
   }
 
   .tool_description {
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 700px);
+    grid-template-areas:
+      "image title"
+      "image options"
+      "image action";
+    align-items: center;
+    justify-content: center;
+    column-gap: 40px;
+    row-gap: 60px;
     @media screen {
       @media (max-width: 1200px) {
-        gap: 20px;
+        grid-template-columns: minmax(0, 700px);
+        grid-template-areas:
+          "title"
+          "image"
+          "options"
+          "action";
+        row-gap: 20px;
       }
       @media (max-width: 660px) {
-        gap: 10px;
+        row-gap: 10px;
       }
     }
   }
 
+  .tool_option_card_container:nth-child(even) .tool_description {
+    grid-template-columns: minmax(0, 700px) auto;
+    grid-template-areas:
+      "title image"
+      "options image"
+      "action image";
+  }
+
   .tool_title_container {
+    grid-area: title;
     display: flex;
     align-items: center;
     gap: 40px;
@@ -140,6 +156,7 @@ const { image, name, description, options, buttonText, modalId } =
   }
 
   .tool_options {
+    grid-area: options;
     position: relative;
     margin: 30px 0 40px;
     display: flex;
@@ -171,29 +188,38 @@ const { image, name, description, options, buttonText, modalId } =
     color: #b05aae;
   }
 
-  .tool_img_wide {
-    height: 625px;
+  .tool_action {
+    grid-area: action;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tool_img {
+    grid-area: image;
     width: 400px;
+    height: 625px;
+    object-fit: contain;
     @media screen {
       @media (max-width: 1200px) {
-        display: none;
+        width: 300px;
+        height: 500px;
+        justify-self: center;
+      }
+      @media (max-width: 660px) {
+        width: 200px;
+        height: 350px;
       }
     }
   }
 
-  .tool_img_narrow {
-    height: 500px;
-    width: 300px;
-    display: none;
-    align-self: center;
-    @media screen {
-      @media (max-width: 1200px) {
-        display: inline;
-      }
-      @media (max-width: 660px) {
-        height: 350px;
-        width: 200px;
-      }
+  @media (max-width: 1200px) {
+    .tool_option_card_container:nth-child(even) .tool_description {
+      grid-template-columns: minmax(0, 700px);
+      grid-template-areas:
+        "title"
+        "image"
+        "options"
+        "action";
     }
   }
 </style>

@@ -1,28 +1,12 @@
 ---
-
-import ToolOptionCard from "../components/ToolOptionCard.astro";
+import ToolConfigurator from "./ToolConfigurator.astro";
 import VideoEmbed from "../shared/components/VideoEmbed.astro";
-import { MEDIA_SECTION_DATA,TOOL_OPTIONS } from "../shared/data/mediaSectionData";
-import { MODAL_DATA } from "../shared/data/modal_data";
-
+import { MEDIA_SECTION_DATA } from "../shared/data/mediaSectionData";
 ---
 
 <section class="media_section">
   {MEDIA_SECTION_DATA.VIDEOS_ID.map((id) => <VideoEmbed videoId={id} />)}
-  <div class="tool_options_container" id="tool_options">
-  {TOOL_OPTIONS.map(
-    ({toolName, toolDescription,options, image}) => (
-      <ToolOptionCard
-        image={image}
-        name={toolName}
-        description={toolDescription}
-        options={options}
-        buttonText={MEDIA_SECTION_DATA.BUTTON_TITLE}
-        modalId={MODAL_DATA.CONTACT_MODAL_ID}
-      />
-    )
-  )}
-  </div>
+  <ToolConfigurator />
   <footer class="media_footer">
     {MEDIA_SECTION_DATA.COMPANY_NAME}
     <br />
@@ -42,9 +26,6 @@ import { MODAL_DATA } from "../shared/data/modal_data";
     display: flex;
     flex-direction: column;
     gap: 30px;
-  }
-  :global(.tool_options_container > .tool_option_card_container:nth-child(even)) {
-    flex-direction: row-reverse;
   }
   .media_footer {
     text-align: center;
@@ -68,8 +49,13 @@ import { MODAL_DATA } from "../shared/data/modal_data";
     letter-spacing: 0.02em;
     text-decoration: none;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(109, 48, 185, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow:
+      0 4px 14px rgba(109, 48, 185, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      filter 0.2s ease;
     animation: web-link-glow 2.2s ease-in-out infinite;
   }
   .web_solutions_link::before {
@@ -77,13 +63,20 @@ import { MODAL_DATA } from "../shared/data/modal_data";
     position: absolute;
     inset: 0;
     transform: translateX(-130%);
-    background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.75) 50%, transparent 65%);
+    background: linear-gradient(
+      105deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.75) 50%,
+      transparent 65%
+    );
     animation: web-link-shine 2.8s linear infinite;
   }
   .web_solutions_link:hover {
     transform: translateY(-2px) scale(1.02);
     filter: brightness(1.05);
-    box-shadow: 0 8px 22px rgba(109, 48, 185, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    box-shadow:
+      0 8px 22px rgba(109, 48, 185, 0.45),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
   }
   .web_solutions_link:active {
     transform: translateY(0) scale(0.99);
@@ -100,10 +93,14 @@ import { MODAL_DATA } from "../shared/data/modal_data";
   @keyframes web-link-glow {
     0%,
     100% {
-      box-shadow: 0 4px 14px rgba(109, 48, 185, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      box-shadow:
+        0 4px 14px rgba(109, 48, 185, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.7);
     }
     50% {
-      box-shadow: 0 7px 20px rgba(109, 48, 185, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      box-shadow:
+        0 7px 20px rgba(109, 48, 185, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
     }
   }
 </style>

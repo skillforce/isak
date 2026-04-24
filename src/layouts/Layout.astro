@@ -39,7 +39,7 @@ import "../styles/fonts.css";
       content="Гера2 – надежное и эффективное решение для пескоструйной обработки."
     />
     <meta name="twitter:image" content="/twitter-image.jpg" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/ico" href="/favicon.ico" />
   </head>
   <body>
     <slot />
@@ -51,10 +51,15 @@ import "../styles/fonts.css";
     scroll-behavior: smooth;
   }
   body {
-    background-image: url("../assets/backgroundPrimary.svg");
+    background-image: url("../assets/backgroundPrimary-960.avif");
     background-repeat: no-repeat;
     background-position: top center;
     background-size: cover;
+  }
 
+  @media (min-width: 768px), (min-resolution: 2dppx) {
+    body {
+      background-image: url("../assets/backgroundPrimary-1600.avif");
+    }
   }
 </style>
