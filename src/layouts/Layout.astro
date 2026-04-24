@@ -49,8 +49,22 @@ import "../styles/fonts.css";
 <style>
   html {
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
+
   body {
+    position: relative;
+    min-height: 100vh;
+    isolation: isolate;
+    background: transparent;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-image: url("../assets/backgroundPrimary-960.avif");
     background-repeat: no-repeat;
     background-position: top center;
@@ -58,7 +72,7 @@ import "../styles/fonts.css";
   }
 
   @media (min-width: 768px), (min-resolution: 2dppx) {
-    body {
+    body::before {
       background-image: url("../assets/backgroundPrimary-1600.avif");
     }
   }

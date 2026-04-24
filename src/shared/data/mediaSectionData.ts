@@ -1,7 +1,9 @@
 import classicImage from "../../assets/tool/tool.avif";
 import ecoImg from "../../assets/tool/eco.avif";
 import titanImg from "../../assets/tool/titan.avif";
-
+import optionOneImg from "../../assets/tool/options/var_1.avif";
+import optionTwoImg from "../../assets/tool/options/var_2.avif";
+import optionThreeImg from "../../assets/tool/options/var_3.avif";
 
 
 export const MEDIA_SECTION_DATA = {
@@ -19,34 +21,72 @@ export const MEDIA_SECTION_DATA = {
 
 export const TOOL_OPTIONS = [
   {
-    toolName:'Эко',
-    toolDescription:'Преднозначен для маломощных компрессоров.Экономичен к расходу воздуха. Производительность компрессора от 200л/мин на выходе',
-    image:ecoImg,
+    toolName: "Эко",
+    toolDescription:
+      "Преднозначен для маломощных компрессоров.Экономичен к расходу воздуха. Производительность компрессора от 200л/мин на выходе",
+    image: ecoImg,
     options: [
-      { text: "Без бачка и регулировки подачи абразива(1 разгонная трубка в комплекте)", price: {RU:3000, BY:75} },
-      { text: "Без бачка, но с регулировкой подачи абразива(1 разгонная трубка в комплекте)", price:{RU:3500, BY:90}},
-      { text: "С бачком(2 разгонных трубки в комплекте)", price: {RU:4500, BY:140} },
+      {
+        text: "Без бачка и регулировки подачи абразива(1 разгонная трубка в комплекте)",
+        optionImage: optionOneImg,
+        price: { RU: 3000, BY: 75 },
+      },
+      {
+        text: "Без бачка, но с регулировкой подачи абразива(1 разгонная трубка в комплекте)",
+        optionImage: optionTwoImg,
+        price: { RU: 3500, BY: 90 },
+      },
+      {
+        text: "С бачком(2 разгонных трубки в комплекте)",
+        optionImage: optionThreeImg,
+        price: { RU: 4500, BY: 140 },
+      },
     ],
   },
   {
-    toolName:'Классик',
-    toolDescription:'Преднозначен для бытовых работ.Производительность компрессора от 300л/мин на выходе',
-    image:classicImage,
+    toolName: "Классик",
+    toolDescription:
+      "Преднозначен для бытовых работ.Производительность компрессора от 300л/мин на выходе",
+    image: classicImage,
     options: [
-      { text: "Без бачка и регулировки подачи абразива(1 разгонная трубка в комплекте)", price: {RU:3500, BY:85} },
-      { text: "Без бачка, но с регулировкой подачи абразива(1 разгонная трубка в комплекте)", price: {RU:4000, BY:100} },
-      { text: "С бачком(2 разгонных трубки в комплекте)", price: {RU:5000, BY:150} },
+      {
+        text: "Без бачка и регулировки подачи абразива(1 разгонная трубка в комплекте)",
+        optionImage: optionOneImg,
+        price: { RU: 3500, BY: 85 },
+      },
+      {
+        text: "Без бачка, но с регулировкой подачи абразива(1 разгонная трубка в комплекте)",
+        optionImage: optionTwoImg,
+        price: { RU: 4000, BY: 100 },
+      },
+      {
+        text: "С бачком(2 разгонных трубки в комплекте)",
+        optionImage: optionThreeImg,
+        price: { RU: 5000, BY: 150 },
+      },
     ],
   },
   {
-    toolName:'Титан',
-    toolDescription:'Преднозначен для работы на производстве(малярные мастерские,СТО). Ресурс соплового узла увеличен путем закалки.Производительность компрессора от 300л/мин на выходе',
-    image:titanImg,
+    toolName: "Титан",
+    toolDescription:
+      "Преднозначен для работы на производстве(малярные мастерские,СТО). Ресурс соплового узла увеличен путем закалки.Производительность компрессора от 300л/мин на выходе",
+    image: titanImg,
     options: [
-      { text: "Без бачка и регулировки подачи абразива(1 разгонная трубка в комплекте)", price: {RU:4000, BY:100} },
-      { text: "Без бачка, но с регулировкой подачи абразива(1 разгонная трубка в комплекте)", price: {RU:4500, BY:115} },
-      { text: "С бачком(2 разгонных трубки в комплекте)", price: {RU:5500, BY:165} },
+      {
+        text: "Без бачка и регулировки подачи абразива(1 разгонная трубка в комплекте)",
+        optionImage: optionOneImg,
+        price: { RU: 4000, BY: 100 },
+      },
+      {
+        text: "Без бачка, но с регулировкой подачи абразива(1 разгонная трубка в комплекте)",
+        optionImage: optionTwoImg,
+        price: { RU: 4500, BY: 115 },
+      },
+      {
+        text: "С бачком(2 разгонных трубки в комплекте)",
+        optionImage: optionThreeImg,
+        price: { RU: 5500, BY: 165 },
+      },
     ],
   }
 ];
-

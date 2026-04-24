@@ -1,18 +1,229 @@
 ---
-import ToolOptionCard from "./ToolOptionCard.astro";
 import { MEDIA_SECTION_DATA, TOOL_OPTIONS } from "../shared/data/mediaSectionData";
 import { MODAL_DATA } from "../shared/data/modal_data";
+import Button from "../shared/components/Button.astro";
+import ConfiguratorModelStep from "./tool-configurator/ConfiguratorModelStep.astro";
+import ConfiguratorComplectationStep from "./tool-configurator/ConfiguratorComplectationStep.astro";
+import ConfiguratorResult from "./tool-configurator/ConfiguratorResult.astro";
 ---
 
-<div class="tool_options_container" id="tool_options">
-  {TOOL_OPTIONS.map(({ toolName, toolDescription, options, image }) => (
-    <ToolOptionCard
-      image={image}
-      name={toolName}
-      description={toolDescription}
-      options={options}
-      buttonText={MEDIA_SECTION_DATA.BUTTON_TITLE}
-      modalId={MODAL_DATA.CONTACT_MODAL_ID}
-    />
-  ))}
-</div>
+<section class="configurator_root" id="tool_options" data-configurator>
+  <h3 class="configurator_main_title">Сформируйте свою конфигурацию</h3>
+
+  <ConfiguratorModelStep />
+
+  <ConfiguratorComplectationStep />
+
+  <ConfiguratorResult
+    toolName={TOOL_OPTIONS[0].toolName}
+    optionText={TOOL_OPTIONS[0].options[0].text}
+    optionImage={TOOL_OPTIONS[0].options[0].optionImage}
+    optionPriceBy={TOOL_OPTIONS[0].options[0].price.BY}
+    optionPriceRu={TOOL_OPTIONS[0].options[0].price.RU}
+  />
+
+  <div class="configurator_actions_center">
+    <Button
+      data-modal-trigger={MODAL_DATA.CONTACT_MODAL_ID}
+      data-modal-name="аппарат Гера2"
+    >
+      {MEDIA_SECTION_DATA.BUTTON_TITLE}
+    </Button>
+  </div>
+</section>
+
+<script>
+  import { TOOL_OPTIONS } from "../shared/data/mediaSectionData";
+
+  const root = document.querySelector("[data-configurator]");
+
+  if (root) {
+    const modeCards = Array.from(
+      root.querySelectorAll("[data-mode-card]")
+    ) as HTMLButtonElement[];
+    const modeNames = Array.from(
+      root.querySelectorAll("[data-mode-name]")
+    ) as HTMLElement[];
+    const optionCards = Array.from(
+      root.querySelectorAll("[data-option-card]")
+    ) as HTMLButtonElement[];
+    const optionGroups = Array.from(
+      root.querySelectorAll("[data-tool-group]")
+    ) as HTMLElement[];
+
+    const complectationBlock = root.querySelector(
+      "[data-complectation-block]"
+    ) as HTMLElement | null;
+    const resultBlock = root.querySelector("[data-result-block]") as HTMLElement | null;
+
+    const summaryToolName = root.querySelector("[data-summary-tool-name]") as
+      | HTMLElement
+      | null;
+    const summaryOptionText = root.querySelector("[data-summary-option-text]") as
+      | HTMLElement
+      | null;
+    const summaryPriceBy = root.querySelector("[data-summary-price-by]") as
+      | HTMLElement
+      | null;
+    const summaryPriceOther = root.querySelector("[data-summary-price-other]") as
+      | HTMLElement
+      | null;
+    const summaryOptionImage = root.querySelector("[data-summary-option-image]") as
+      | HTMLImageElement
+      | null;
+    const orderButton = root.querySelector("[data-modal-trigger]") as
+      | HTMLButtonElement
+      | null;
+
+    let selectedToolIndex = -1;
+    let selectedOptionIndex = -1;
+
+    function renderTools() {
+      modeCards.forEach((card) => {
+        const active = Number(card.dataset.toolIndex) === selectedToolIndex;
+        card.classList.toggle("is-selected", active);
+        card.setAttribute("aria-pressed", String(active));
+      });
+
+      modeNames.forEach((name, nameIndex) => {
+        name.classList.toggle("is-underlined", nameIndex === selectedToolIndex);
+      });
+    }
+
+    function renderComplectation() {
+      const hasTool = selectedToolIndex >= 0;
+      if (complectationBlock) {
+        complectationBlock.hidden = !hasTool;
+      }
+
+      optionGroups.forEach((group) => {
+        group.hidden = Number(group.dataset.toolGroup) !== selectedToolIndex;
+      });
+    }
+
+    function renderOptions() {
+      optionCards.forEach((card) => {
+        const cardToolIndex = Number(card.dataset.toolIndex);
+        const cardOptionIndex = Number(card.dataset.optionIndex);
+        const active =
+          cardToolIndex === selectedToolIndex &&
+          cardOptionIndex === selectedOptionIndex;
+
+        card.classList.toggle("is-selected", active);
+        card.setAttribute("aria-pressed", String(active));
+      });
+    }
+
+    function renderResult() {
+      const isReady = selectedToolIndex >= 0 && selectedOptionIndex >= 0;
+
+      if (resultBlock) {
+        resultBlock.hidden = !isReady;
+      }
+
+      if (!isReady) {
+        return;
+      }
+
+      const selectedTool = TOOL_OPTIONS[selectedToolIndex];
+      const selectedOption = selectedTool.options[selectedOptionIndex];
+
+      if (summaryToolName) summaryToolName.textContent = selectedTool.toolName;
+      if (summaryOptionText) summaryOptionText.textContent = selectedOption.text;
+      if (summaryPriceBy) summaryPriceBy.textContent = `${selectedOption.price.BY} BYN`;
+      if (summaryPriceOther) summaryPriceOther.textContent = `${selectedOption.price.RU} RUB`;
+
+      if (summaryOptionImage) {
+        summaryOptionImage.src = selectedOption.optionImage.src;
+        summaryOptionImage.width = selectedOption.optionImage.width;
+        summaryOptionImage.height = selectedOption.optionImage.height;
+        summaryOptionImage.alt = `Комплектация ${selectedOptionIndex + 1}`;
+      }
+
+      if (orderButton) {
+        orderButton.dataset.modalName = selectedTool.toolName;
+      }
+    }
+
+    function selectTool(index: number) {
+      if (selectedToolIndex !== index) {
+        selectedOptionIndex = -1;
+      }
+
+      selectedToolIndex = index;
+      renderTools();
+      renderComplectation();
+      renderOptions();
+      renderResult();
+    }
+
+    function selectOption(index: number) {
+      selectedOptionIndex = index;
+      renderOptions();
+      renderResult();
+    }
+
+    modeCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const index = Number(card.dataset.toolIndex);
+        selectTool(index);
+      });
+    });
+
+    optionCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        if (selectedToolIndex < 0) {
+          return;
+        }
+
+        const cardToolIndex = Number(card.dataset.toolIndex);
+        const cardOptionIndex = Number(card.dataset.optionIndex);
+
+        if (cardToolIndex !== selectedToolIndex) {
+          return;
+        }
+
+        selectOption(cardOptionIndex);
+      });
+    });
+
+    renderTools();
+    renderComplectation();
+    renderOptions();
+    renderResult();
+  }
+</script>
+
+<style>
+  .configurator_root {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .configurator_main_title {
+    font-size: 52px;
+    text-transform: uppercase;
+    color: #080808;
+    line-height: 1.1;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .configurator_actions_center {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 760px) {
+    .configurator_root {
+      margin-top: 40px;
+      gap: 24px;
+    }
+
+    .configurator_main_title {
+      font-size: 36px;
+    }
+  }
+</style>
