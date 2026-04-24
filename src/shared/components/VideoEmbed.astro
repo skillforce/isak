@@ -1,35 +1,183 @@
 ---
 interface Props {
-    videoId: string
+  videoId: string;
 }
+
 const { videoId } = Astro.props;
+const [videoKey, rawQuery = ""] = videoId.split("?");
+const embedParams = new URLSearchParams(rawQuery);
+
+embedParams.set("rel", "0");
+embedParams.set("modestbranding", "1");
+embedParams.set("playsinline", "1");
+
+const embedSrc = `https://www.youtube-nocookie.com/embed/${videoKey}?${embedParams.toString()}`;
+const posterSrc = `https://i.ytimg.com/vi/${videoKey}/hqdefault.jpg`;
 ---
 
-<div class="video-embed-container">
+
+<script is:inline>
+  (() => {
+    if (window.__ytFacadeInitialized) return;
+    window.__ytFacadeInitialized = true;
+
+    const preconnectedHosts = new Set();
+    const preconnect = (host) => {
+      if (preconnectedHosts.has(host)) return;
+      const link = document.createElement("link");
+      link.rel = "preconnect";
+      link.href = host;
+      link.crossOrigin = "anonymous";
+      document.head.append(link);
+      preconnectedHosts.add(host);
+    };
+
+    const warmupConnections = () => {
+      preconnect("https://www.youtube-nocookie.com");
+      preconnect("https://www.google.com");
+      preconnect("https://i.ytimg.com");
+    };
+
+    const activatePlayer = (container) => {
+      if (!container || container.dataset.ready === "true") return;
+      const src = container.dataset.src;
+      if (!src) return;
+
+      warmupConnections();
+
+      const iframe = document.createElement("iframe");
+      iframe.src = src + (src.includes("?") ? "&autoplay=1" : "?autoplay=1");
+      iframe.title = "YouTube video player";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+      container.replaceChildren(iframe);
+      container.dataset.ready = "true";
+    };
+
+    document.addEventListener("pointerover", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (target && target.closest("[data-youtube-play]")) {
+        warmupConnections();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const trigger = target && target.closest("[data-youtube-play]");
+      if (!trigger) return;
+      const container = trigger.closest("[data-youtube-facade]");
+      activatePlayer(container);
+    });
+  })();
+</script>
+
+<div class="video-embed-container" data-youtube-facade data-src={embedSrc}>
+  <button
+    type="button"
+    class="video-embed-play"
+    aria-label="Play YouTube video"
+    data-youtube-play
+  >
+    <img src={posterSrc} alt="" loading="lazy" decoding="async" />
+    <span class="video-overlay" aria-hidden="true">
+      <span class="video-play-icon"></span>
+    </span>
+  </button>
+
+  <noscript>
     <iframe
-            width="100"
-            height="100"
-            src={`https://www.youtube.com/embed/${videoId}`}
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy"
+      title="YouTube video player"
+      src={embedSrc}
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
     ></iframe>
+  </noscript>
 </div>
 
+
 <style>
-    .video-embed-container {
-      aspect-ratio: 16 / 9;
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-      overflow: hidden;
-      background: #000;
-      border-radius: 4px;
-    }
-    .video-embed-container iframe {
-      width: 100%;
-      height: 100%;
-    }
+  .video-embed-container {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: #000;
+    border-radius: 4px;
+  }
+
+  .video-embed-play {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    display: block;
+    cursor: pointer;
+    background: #000;
+  }
+
+  .video-embed-play img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45));
+    transition: background-color 0.2s ease;
+  }
+
+  .video-play-icon {
+    width: 74px;
+    height: 52px;
+    border-radius: 12px;
+    background: rgba(25, 25, 25, 0.86);
+    position: relative;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .video-play-icon::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    border-style: solid;
+    border-width: 11px 0 11px 18px;
+    border-color: transparent transparent transparent #fff;
+  }
+
+  .video-embed-play:hover .video-overlay {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.38));
+  }
+
+  .video-embed-play:hover .video-play-icon {
+    background: #f00;
+    transform: scale(1.03);
+  }
+
+  .video-embed-play:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -3px;
+  }
+
+  .video-embed-container :global(iframe) {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+  }
 </style>
