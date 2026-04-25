@@ -1,3 +1,5 @@
+import thumbFirstVideo from "../../assets/video/thumbFirstVideo.avif";
+import thumbSecondVideo from "../../assets/video/thumbSecondVideo.avif";
 import classicImage from "../../assets/tool/tool.avif";
 import ecoImg from "../../assets/tool/eco.avif";
 import titanImg from "../../assets/tool/titan.avif";
@@ -7,9 +9,9 @@ import optionThreeImg from "../../assets/tool/options/var_3.avif";
 
 
 export const MEDIA_SECTION_DATA = {
-  VIDEOS_ID: [
-    "wwzq9kUryF8?si=X_kpOn4CDefmvvKH",
-    "AczPuWS2BeQ?si=29lXFXkqh68Hu0so",
+  VIDEOS: [
+    { id: "wwzq9kUryF8?si=X_kpOn4CDefmvvKH", poster: thumbFirstVideo },
+    { id: "AczPuWS2BeQ?si=29lXFXkqh68Hu0so", poster: thumbSecondVideo },
   ],
   BUTTON_TITLE: "Заказать",
   COMPANY_NAME: "Gera2 ©",

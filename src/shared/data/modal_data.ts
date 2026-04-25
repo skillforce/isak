@@ -1,7 +1,7 @@
-import telegramIcon from "../../assets/contact_icons/telegram.svg";
-import viberIcon from "../../assets/contact_icons/viber.svg";
-import phoneIcon from "../../assets/contact_icons/phone.svg";
-import whatsUpIcon from "../../assets/contact_icons/watsup.svg";
+import telegramIcon from "../../assets/contact_icons/telegram.svg?raw";
+import viberIcon from "../../assets/contact_icons/viber.svg?raw";
+import phoneIcon from "../../assets/contact_icons/phone.svg?raw";
+import whatsUpIcon from "../../assets/contact_icons/watsup.svg?raw";
 
 
 export type ContactType = "whatsapp" | "viber" | "telegram" | "phone";
@@ -9,7 +9,7 @@ export type ContactType = "whatsapp" | "viber" | "telegram" | "phone";
 export interface Contact {
   type: ContactType;
   href: string;
-  icon: typeof whatsUpIcon
+  icon: string;
   label: string;
 }
 

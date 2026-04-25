@@ -1,9 +1,12 @@
 ---
 import "../styles/fonts.css";
+import bgPrimary960 from "../assets/backgroundPrimary-960.avif";
+import bgPrimary1600 from "../assets/backgroundPrimary-1600.avif";
+import bgSecondary from "../assets/backgroundSecondary.avif";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +22,7 @@ import "../styles/fonts.css";
       name="keywords"
       content="Гера2, пескоструйный аппарат, пескоструй, очистка, обработка поверхностей, промышленное оборудование"
     />
-    <meta name="author" content="Ваше имя или компания" />
+    <meta name="author" content="Gera2 / Гера2" />
 
     <!-- Open Graph for social media -->
     <meta property="og:title" content="Гера2 – Пескоструйный аппарат" />
@@ -27,18 +30,21 @@ import "../styles/fonts.css";
       property="og:description"
       content="Гера2 – надежное решение для пескоструйной обработки и очистки поверхностей."
     />
-    <meta property="og:image" content="/og-image.jpg" />
-    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta property="og:image" content="/favicon.ico" />
+    <meta property="og:url" content="https://gera2.by" />
     <meta property="og:type" content="product" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Гера2 – Пескоструйный аппарат" />
     <meta
       name="twitter:description"
       content="Гера2 – надежное и эффективное решение для пескоструйной обработки."
     />
-    <meta name="twitter:image" content="/twitter-image.jpg" />
+    <meta name="twitter:image" content="/favicon.ico" />
+    <link rel="preload" as="image" href={bgPrimary960.src} media="(max-width: 767px)" />
+    <link rel="preload" as="image" href={bgPrimary1600.src} media="(min-width: 768px), (min-resolution: 2dppx)" />
+    <link rel="preload" as="image" href={bgSecondary.src} />
     <link rel="icon" type="image/ico" href="/favicon.ico" />
   </head>
   <body>

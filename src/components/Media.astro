@@ -5,7 +5,7 @@ import { MEDIA_SECTION_DATA } from "../shared/data/mediaSectionData";
 ---
 
 <section class="media_section">
-  {MEDIA_SECTION_DATA.VIDEOS_ID.map((id) => <VideoEmbed videoId={id} />)}
+  {MEDIA_SECTION_DATA.VIDEOS.map(({ id, poster }) => <VideoEmbed videoId={id} poster={poster} />)}
   <ToolConfigurator />
   <footer class="media_footer">
     {MEDIA_SECTION_DATA.COMPANY_NAME}

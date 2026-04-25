@@ -32,6 +32,8 @@ import toolImage from "../assets/tool/tool2.avif";
     border-radius: 4px;
     box-shadow: 4px 4px 5px 0 rgba(80, 78, 78, 0.6);
     height: fit-content;
+    overflow-x: clip;
+    overflow-y: hidden;
   }
 
   .reasons_container {
@@ -46,8 +48,12 @@ import toolImage from "../assets/tool/tool2.avif";
   .tool_img {
     position: absolute;
     height: 80%;
+    max-width: min(44vw, 560px);
+    width: auto;
     right: 0;
     top: 5%;
+    object-fit: contain;
+    pointer-events: none;
   }
   @media (max-width: 1400px) {
     .tool_img {
@@ -78,6 +84,7 @@ import toolImage from "../assets/tool/tool2.avif";
     .tool_img {
       height: 50%;
       top: 30%;
+      max-width: 52vw;
     }
   }
 </style>

@@ -26,22 +26,28 @@ const { title, content } = Astro.props;
       0 0 5px white,
       0 0 8px white;
     width: fit-content;
+    max-width: 100%;
     border-radius: 10px;
   }
 
   .reason_card {
     width: 70%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .reason_card_title {
     width: fit-content;
+    max-width: 100%;
     padding: 10px 20px;
     font-size: 20px;
     border-radius: 8px;
     background: linear-gradient(45deg, #9c21a7, #5d3fd3, #214bc5, #1f5fc8);
     background-size: 400% 400%;
     animation: gradientAnimation 5s ease infinite;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   @keyframes gradientAnimation {
@@ -66,6 +72,9 @@ const { title, content } = Astro.props;
     border-radius: 4px;
     backdrop-filter: blur(1px);
     width: 85%;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   @media (max-width: 1400px) {
@@ -76,7 +85,7 @@ const { title, content } = Astro.props;
 
   @media (max-width: 1024px) {
     .reason_card_title {
-      white-space: wrap;
+      white-space: normal;
       text-align: center;
     }
     .reason_card {

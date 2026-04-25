@@ -37,7 +37,154 @@ const { id } = Astro.props;
   </ModalBody>
 </FreeModal>
 
+<script define:vars={{ id }}>
+  const onDOMReady = (callback) => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  };
+
+  const isIOS164OrLower = () => {
+    const ua = navigator.userAgent;
+    const isIOSDevice =
+      /iP(ad|hone|od)/.test(ua) ||
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+    if (!isIOSDevice) return false;
+
+    const osMatch = ua.match(/OS (\d+)[._](\d+)/);
+    if (osMatch) {
+      const major = Number(osMatch[1]);
+      const minor = Number(osMatch[2]);
+      return major < 16 || (major === 16 && minor <= 4);
+    }
+
+    const versionMatch = ua.match(/Version\/(\d+)\.(\d+)/);
+    if (!versionMatch) return false;
+
+    const major = Number(versionMatch[1]);
+    const minor = Number(versionMatch[2]);
+    return major < 16 || (major === 16 && minor <= 4);
+  };
+
+  const resetModalState = (modal) => {
+    modal.classList.add("ac-modal--close");
+    modal.style.removeProperty("transform");
+    modal.style.removeProperty("opacity");
+    modal.style.removeProperty("transition");
+    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
+  };
+
+  const disableLibraryTouchControls = (modal) => {
+    modal.removeEventListener("touchstart", modal.handleTouchStart);
+    modal.removeEventListener("touchmove", modal.handleTouchMove);
+    modal.removeEventListener("touchend", modal.handleTouchEnd);
+  };
+
+  const hardHideModal = (modal) => {
+    modal.setAttribute("hidden", "");
+    modal.style.display = "none";
+    modal.style.pointerEvents = "none";
+  };
+
+  const hardShowModal = (modal) => {
+    modal.removeAttribute("hidden");
+    modal.style.removeProperty("display");
+    modal.style.removeProperty("pointer-events");
+  };
+
+  const setupModalIOSFallback = (modalId) => {
+    const modal = document.getElementById(modalId);
+    if (!(modal instanceof HTMLDialogElement)) return;
+
+    if (!isIOS164OrLower()) return;
+
+    const syncVisibilityState = () => {
+      if (modal.open) {
+        modal.classList.remove("ac-modal--close");
+        hardShowModal(modal);
+        disableLibraryTouchControls(modal);
+        return;
+      }
+
+      resetModalState(modal);
+      hardHideModal(modal);
+    };
+
+    modal.addEventListener("close", () => {
+      resetModalState(modal);
+      hardHideModal(modal);
+    });
+
+    const forceClose = () => {
+      let closedNatively = false;
+      try {
+        if (modal.open) {
+          modal.close();
+          closedNatively = true;
+        }
+      } catch {
+        closedNatively = false;
+      }
+
+      modal.removeAttribute("open");
+      resetModalState(modal);
+
+      if (!closedNatively) {
+        modal.dispatchEvent(new Event("close"));
+      }
+    };
+
+    modal
+      .querySelectorAll("[data-modal-close]")
+      .forEach((control) => {
+        control.addEventListener(
+          "touchend",
+          (event) => {
+            event.preventDefault();
+            forceClose();
+          },
+          { passive: false }
+        );
+      });
+
+    const observer = new MutationObserver(() => {
+      syncVisibilityState();
+    });
+
+    observer.observe(modal, {
+      attributes: true,
+      attributeFilter: ["open"],
+    });
+
+    syncVisibilityState();
+  };
+
+  onDOMReady(() => setupModalIOSFallback(id));
+</script>
+
 <style>
+  :global(.welcome_modal[hidden]) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  :global(.welcome_modal.ac-modal--close) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  :global(.welcome_modal:not([open])) {
+    display: none !important;
+  }
+
   :global(.welcome_modal) {
     background: rgb(0, 75, 164);
     background: radial-gradient(
@@ -47,22 +194,19 @@ const { id } = Astro.props;
     );
     opacity: 0.95;
     border-radius: 4px;
+  }
 
-    .ac-modal-close {
-      color: #ffffff;
-    }
-    .ac-modal-header {
-      color: #ffffff;
-      font-family: "Sansation", sans-serif;
-      font-weight: bold;
-      font-size: 22px;
-      display: flex;
-      justify-content: center;
-    }
+  :global(.welcome_modal .ac-modal-close) {
+    color: #ffffff;
+  }
 
-    :global(.ac-modal-close) {
-      color: #ffffff;
-    }
+  :global(.welcome_modal .ac-modal-header) {
+    color: #ffffff;
+    font-family: "Sansation", sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
   }
 
   .welcome_modal_body {
